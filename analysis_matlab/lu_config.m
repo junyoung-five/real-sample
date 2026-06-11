@@ -14,7 +14,8 @@ function cfg = lu_config()
     %   - 채널접두어 = 'C1'
     %   - 시편(sample) = 'sample1', 'sample2'
     %   - 인덱스 NNNNN = 라인 스캔 위치(00000~00010)
-    cfg.dataDir       = fileparts(fileparts(mfilename('fullpath'))); % .dat 들이 있는 상위 폴더
+    projectRoot       = fileparts(fileparts(mfilename('fullpath'))); % 프로젝트 최상위 폴더
+    cfg.dataDir       = fullfile(projectRoot, 'data');               % .dat 들이 모여 있는 data 폴더
     cfg.channelPrefix = 'C1';
     cfg.samples       = {'sample1', 'sample2'};   % 비교할 시편 목록
     cfg.indexRange    = 0:10;                      % 라인 스캔 위치 인덱스
@@ -85,7 +86,7 @@ function cfg = lu_config()
     % ------------------------------------------------------------------
     % 7) 출력
     % ------------------------------------------------------------------
-    cfg.out.dir          = fullfile(cfg.dataDir, 'analysis_matlab', 'results');
+    cfg.out.dir          = fullfile(projectRoot, 'analysis_matlab', 'results');
     cfg.out.savePlots    = true;
     cfg.out.saveMat      = true;
     cfg.out.plotFormat   = 'png';
