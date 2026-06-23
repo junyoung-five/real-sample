@@ -1,2 +1,6 @@
 # Claude Code 로컬 작업 파일
 .claude/
+
+# OS metadata
+.DS_Store
+**/.DS_Store

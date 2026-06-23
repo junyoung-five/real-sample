@@ -10,7 +10,7 @@ function lu_plots(allSamples, bscan, featTable, cmp, cfg)
     saveFig = @(fig, name) localSave(fig, name, cfg);
 
     %% (1) 대표 A-scan + 포락선 -------------------------------------------
-    f1 = figure('Name','A-scan & Envelope','Color','w','Position',[80 80 1000 600]);
+    f1 = figure('Name','A-scan & Envelope','Color','w','Position',[80 80 1000 600]); trytheme(f1);
     for si = 1:numel(samples)
         sname = samples{si};
         if ~isfield(allSamples, sname) || isempty(allSamples.(sname)), continue; end
@@ -28,7 +28,7 @@ function lu_plots(allSamples, bscan, featTable, cmp, cfg)
     saveFig(f1, 'fig1_ascan_envelope');
 
     %% (2) FFT 스펙트럼 비교 (위치 0 기준) --------------------------------
-    f2 = figure('Name','FFT Spectrum','Color','w','Position',[100 100 900 500]);
+    f2 = figure('Name','FFT Spectrum','Color','w','Position',[100 100 900 500]); trytheme(f2);
     hold on; leg = {};
     for si = 1:numel(samples)
         sname = samples{si};
@@ -44,7 +44,7 @@ function lu_plots(allSamples, bscan, featTable, cmp, cfg)
     saveFig(f2, 'fig2_fft_spectrum');
 
     %% (3) STFT 스펙트로그램 (시편별 pos 0) -------------------------------
-    f3 = figure('Name','Spectrogram','Color','w','Position',[120 120 1100 500]);
+    f3 = figure('Name','Spectrogram','Color','w','Position',[120 120 1100 500]); trytheme(f3);
     for si = 1:numel(samples)
         sname = samples{si};
         if ~isfield(allSamples, sname) || isempty(allSamples.(sname)), continue; end
@@ -63,7 +63,7 @@ function lu_plots(allSamples, bscan, featTable, cmp, cfg)
     saveFig(f3, 'fig3_spectrogram');
 
     %% (4) B-scan 영상 ----------------------------------------------------
-    f4 = figure('Name','B-scan','Color','w','Position',[140 140 1100 600]);
+    f4 = figure('Name','B-scan','Color','w','Position',[140 140 1100 600]); trytheme(f4);
     for si = 1:numel(samples)
         sname = samples{si};
         if ~isfield(bscan, sname), continue; end
@@ -80,7 +80,7 @@ function lu_plots(allSamples, bscan, featTable, cmp, cfg)
     %% (5) 위치별 특징 곡선 + 이상치 --------------------------------------
     metricsToPlot = {'peakAmp','energy','tofFirst','peakFreq'};
     metricsToPlot = metricsToPlot(ismember(metricsToPlot, featTable.Properties.VariableNames));
-    f5 = figure('Name','Feature vs position','Color','w','Position',[160 160 1100 700]);
+    f5 = figure('Name','Feature vs position','Color','w','Position',[160 160 1100 700]); trytheme(f5);
     T = cmp.table;
     for mi = 1:numel(metricsToPlot)
         subplot(2,2,mi); hold on;
@@ -111,4 +111,8 @@ function localSave(fig, name, cfg)
             saveas(fig, fullfile(cfg.out.dir, [name '.' cfg.out.plotFormat]));
         end
     end
+end
+
+function trytheme(f)
+    try, theme(f,'light'); end
 end
